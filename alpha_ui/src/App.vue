@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <Fiance></Fiance>
+      <Finance></Finance>
       <News></News>
   </div>
 </template>
@@ -13,7 +13,7 @@ import News from './components/News.vue'
 export default {
   name: 'app',
   components: {
-    Finance, News
+    Finance, News,
   }
 }
 </script>
