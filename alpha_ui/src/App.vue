@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <Fiance></Fiance>
+      <Finance></Finance>
       <News></News>
   </div>
 </template>
