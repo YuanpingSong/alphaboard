@@ -49,7 +49,7 @@
                   <v-flex>
                       <h3 class="display-3">Welcome to the site</h3>
 
-                      <span class="subheading">Lorem ipsum dolor sit amet, pri veniam forensibus id. Vis maluisset molestiae id, ad semper lobortis cum. At impetus detraxit incorrupte usu, repudiare assueverit ex eum, ne nam essent vocent admodum.</span>
+                      <span class="subheading">We provide personalized financial services that make money management so much easier!</span>
 
                       <v-divider class="my-3"></v-divider>
 
