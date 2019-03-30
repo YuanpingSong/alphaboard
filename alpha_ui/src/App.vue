@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+      <portfolio></portfolio>
+      <Finance></Finance>
+      <News></News>
 
       <v-card
               color="grey lighten-4"
@@ -89,6 +92,7 @@ import mapInit from 'highcharts/modules/map'
 // single file components
 import Finance from './components/Finance.vue'
 import News from './components/News.vue'
+import Portfolio from './components/Portfolio.vue'
 
 // register plugins
 Vue.use(Vuetify)
@@ -104,6 +108,7 @@ export default {
   components: {
       Finance,
       News,
+      Portfolio,
       // put additional single file components here
   }
 }

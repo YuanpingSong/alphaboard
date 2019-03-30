@@ -1,5 +1,8 @@
 <template>
-  <highcharts class="stock" :constructor-type="'stockChart'" :options="stockOptions"></highcharts>
+  <div class="StockChart">
+    <highcharts class="stock" :constructor-type="'stockChart'" :options="stockOptions"></highcharts>
+    <p @click="updateChart">Click Me </p>
+  </div>
 </template>
 
 <script>
@@ -12,7 +15,7 @@ export default {
           selected: 1
         },
         title: {
-          text: 'AAPL Stock Price'
+          text: ''
         },
         series: [{
           name: 'AAPL',
@@ -22,10 +25,27 @@ export default {
           tooltip: {
             valueDecimals: 2
           }
-        }]
+        },
+          {
+            name: 'MSFT',
+            data: [15, 27, 19, 33, 65, 121, 44, 66, 98, 30, 32, 56, 25, 12, 53],
+            pointStart: Date.UTC(2018, 1, 1),
+            pointInterval: 1000 * 3600 * 24,
+            tooltip: {
+              valueDecimals: 2
+            }
+          }]
       }
     }
+  },
+  methods: {
+    updateChart: function (event) {
+      this.stockOptions.title.text ='MSFT Stock Price';
+      this.stockOptions.series[0].data.push(Math.random() * 100);
+
+    }
   }
+
 }
 </script>
 

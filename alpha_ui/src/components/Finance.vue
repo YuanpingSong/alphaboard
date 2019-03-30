@@ -1,7 +1,7 @@
 <template>
     <div class="Finance">
         <highcharts :options="chartOptions"></highcharts>
-        <StockChart> </StockChart>
+        <StockChart></StockChart>
     </div>
 
 
