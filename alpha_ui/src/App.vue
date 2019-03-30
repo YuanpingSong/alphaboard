@@ -29,7 +29,7 @@
       </v-card>
 
       <portfolio></portfolio>
-      <Finance></Finance>
+      <Finance class="f"></Finance>
       <News></News>
       
   </v-app>
@@ -79,6 +79,6 @@ export default {
     width: 600px;
     height: 200px;
 }
-.f {display:inline-block;margin-right:10px;}
+
 
 </style>
