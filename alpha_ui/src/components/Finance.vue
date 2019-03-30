@@ -1,7 +1,7 @@
 <template>
     <div class="Finance">
         <highcharts :options="chartOptions"></highcharts>
-        <StockChart> </StockChart>
+        <StockChart id="s"> </StockChart>
     </div>
 
 
@@ -40,5 +40,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+#s {
+    width: 600px;
+    height: 500px;
+}
+#s {display:inline-block;}
 </style>
