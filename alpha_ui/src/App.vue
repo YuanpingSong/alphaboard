@@ -34,21 +34,36 @@
 
 
 <script>
-import Finance from './components/Finance.vue'
-import News from './components/News.vue'
 import Vue from 'vue'
-import HighchartsVue from 'highcharts-vue'
+
+// component library
 import Vuetify from 'vuetify'
 
+// charting library
+import HighchartsVue from 'highcharts-vue'
+import Highcharts from 'highcharts'
+import stockInit from 'highcharts/modules/stock'
+import mapInit from 'highcharts/modules/map'
+
+// single file components
+import Finance from './components/Finance.vue'
+import News from './components/News.vue'
+
+// register plugins
 Vue.use(Vuetify)
 Vue.use(HighchartsVue)
 
+// register highcharts constructors
+stockInit(Highcharts)
+mapInit(Highcharts)
 
 
 export default {
   name: 'app',
   components: {
-    Finance, News,
+      Finance,
+      News,
+      // put additional single file components here
   }
 }
 </script>
