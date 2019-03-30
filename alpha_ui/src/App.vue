@@ -1,8 +1,5 @@
 <template>
   <v-app id="app">
-      <portfolio></portfolio>
-      <Finance></Finance>
-      <News></News>
 
       <v-card
               color="blue lighten-4"
@@ -31,47 +28,10 @@
           </v-toolbar>
       </v-card>
 
-      <!--<v-img src="webwxgetmsgimg.jpeg" max-height="1000" max-width="1000">-->
-          <!--<v-layout-->
-                  <!--align-center-->
-                  <!--column-->
-                  <!--justify-center-->
-          <!--&gt;-->
-              <!--<h1 class="display-2 font-weight-thin mb-3">Vuetify.js</h1>-->
-              <!--<h4 class="subheading">Build your application today!</h4>-->
-          <!--</v-layout>-->
-      <!--</v-img>-->
-
-
-      <v-responsive>
-          <v-container fill-height>
-              <v-layout align-center>
-                  <v-flex>
-                      <h3 class="display-3">Welcome to the site</h3>
-
-                      <span class="subheading">We provide personalized financial services that make money management so much easier!</span>
-
-                      <v-divider class="my-3"></v-divider>
-
-                      <div class="title mb-3">Check out our newest features!</div>
-
-                      <v-btn
-                              class="mx-0"
-                              color="primary"
-                              large
-                      >
-                          See more
-                      </v-btn>
-                  </v-flex>
-              </v-layout>
-          </v-container>
-      </v-responsive>
-
-
+      <portfolio></portfolio>
       <Finance></Finance>
       <News></News>
-
-
+      
   </v-app>
 </template>
 
