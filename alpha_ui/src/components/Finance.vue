@@ -1,6 +1,7 @@
 <template>
     <div class="Finance">
         <highcharts :options="chartOptions"></highcharts>
+        <StockChart> </StockChart>
     </div>
 
 
@@ -9,11 +10,14 @@
 
 <script>
 
-    //import {Chart} from 'highcharts-vue'
+    import StockChart from './StockChart.vue'
     export default {
         name: 'Finance',
         props: {
             // msg: String
+        },
+        components: {
+            StockChart,
         },
         mounted() {
 
