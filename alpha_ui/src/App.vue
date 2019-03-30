@@ -1,11 +1,11 @@
 <template>
-  <div id="app">
+  <v-app id="app">
       <portfolio></portfolio>
       <Finance></Finance>
       <News></News>
 
       <v-card
-              color="grey lighten-4"
+              color="blue lighten-4"
               flat
               height="200px"
               tile
@@ -72,7 +72,7 @@
       <News></News>
 
 
-  </div>
+  </v-app>
 </template>
 
 
