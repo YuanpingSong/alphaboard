@@ -7,6 +7,7 @@ app.get('/', function (req, res) {
 });
 
 // use port 8080 in your local environment. ports bellow 1024 requires sudo 
-app.listen(8080, function () {
+app.listen(80, function () {
     console.log('Server listening on port 8080');
 });
+
