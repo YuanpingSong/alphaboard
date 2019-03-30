@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <v-app id="app">
 
       <v-card
-              color="grey lighten-4"
+              color="blue lighten-4"
               flat
               height="200px"
               tile
@@ -28,22 +28,11 @@
           </v-toolbar>
       </v-card>
 
-      <!--<v-img src="webwxgetmsgimg.jpeg" max-height="1000" max-width="1000">-->
-          <!--<v-layout-->
-                  <!--align-center-->
-                  <!--column-->
-                  <!--justify-center-->
-          <!--&gt;-->
-              <!--<h1 class="display-2 font-weight-thin mb-3">Vuetify.js</h1>-->
-              <!--<h4 class="subheading">Build your application today!</h4>-->
-          <!--</v-layout>-->
-      <!--</v-img>-->
-
-      <Finance class="f"></Finance>
-      <News class="n"></News>
-
-
-  </div>
+      <portfolio></portfolio>
+      <Finance></Finance>
+      <News></News>
+      
+  </v-app>
 </template>
 
 
@@ -63,6 +52,7 @@ import mapInit from 'highcharts/modules/map'
 // single file components
 import Finance from './components/Finance.vue'
 import News from './components/News.vue'
+import Portfolio from './components/Portfolio.vue'
 
 // register plugins
 Vue.use(Vuetify)
@@ -78,6 +68,7 @@ export default {
   components: {
       Finance,
       News,
+      Portfolio,
       // put additional single file components here
   }
 }
