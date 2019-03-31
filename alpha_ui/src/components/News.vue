@@ -12,29 +12,37 @@
                     ></v-img>
 
                     <v-card-title primary-title>
-                        <h3 class="headline" style="margin-bottom: 8px">{{card.heading}}</h3>
-                        <div class="text-truncate"> {{ card.excerpt }} </div>
+                        <h3 class="headline" style="margin-bottom: 8px">{{card.title}}</h3>
+                        <div class="text-truncate"> {{ card.body }} </div>
                     </v-card-title>
+
+                    <v-card-actions>
+                        <v-btn :href="card.url" flat color="orange">READ</v-btn>
+                    </v-card-actions>
 
                 </v-card>
             </v-flex>
             -->
 
-            <v-flex sm6 class="pa-5">
-                <v-card dark>
-                    <v-img
-                            src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-                            aspect-ratio="2.75"
-                            height="200"
-                    ></v-img>
+                <v-flex sm6 class="pa-5">
+                    <v-card dark>
+                        <v-img
+                                src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
+                                aspect-ratio="2.75"
+                                height="200"
+                        ></v-img>
 
-                    <v-card-title primary-title>
+                        <v-card-title primary-title>
                             <h3 class="headline" style="margin-bottom: 8px">Kangaroo Valley Safari</h3>
                             <div class="text-truncate"> {{ card_text }} </div>
-                    </v-card-title>
+                        </v-card-title>
 
-                </v-card>
-            </v-flex>
+
+
+                    </v-card>
+                </v-flex>
+
+
 
 
 
@@ -112,9 +120,9 @@
                 cards: [
                     {
                         imageSrc: '',
-                        heading: '',
-                        excerpt: '',
-                        URL: '',
+                        title: '',
+                        body: '',
+                        url: '',
                     },
                 ],
             }
@@ -138,5 +146,8 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .no-decoration {
+        text-decoration: none;
+    }
 
 </style>
