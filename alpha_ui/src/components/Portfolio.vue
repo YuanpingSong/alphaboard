@@ -170,10 +170,11 @@
                     indicators: this.indicators,
                     configuration: this.config,
                 };
-
+                console.log("Before JSON");
                 console.log(JSON.stringify(payload));
                 try {
-                    await fetch('/register', {
+                    console.log("Enter try block");
+                    let res = await fetch('http://localhost:8080/register', {
                         method: 'POST',
                         mode: "cors",
                         headers: {
@@ -181,7 +182,9 @@
                         },
                         body: JSON.stringify(payload),
                     });
+                    console.log(res);
                 } catch (err) {
+                    console.log("Our catch block hit");
                     this.snackText = "Failed to register due to " + err.message;
                     this.snackbar = true;
                     return;
