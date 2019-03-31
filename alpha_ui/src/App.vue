@@ -30,21 +30,27 @@
           </v-toolbar>
       <!--</v-card>-->
 
-      <v-parallax dark
-              src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-      >
-          <v-layout class="display-1"
-                  align-center
-                  column
-                  justify-center
-          >
-              <h1 class="font-weight-thin">AlphaBoard</h1>
-              <vue-typed-js :strings="['Your Personal Financial Secretary', 'Keep Track of Everyday News']" :loop="true"
-                            :showCursor="true">
-                  <h4 class="typing"></h4>
-              </vue-typed-js>
-          </v-layout>
-      </v-parallax>
+      <v-layout>
+          <v-flex xs6>
+              <v-parallax dark
+                          src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+              >
+                  <v-layout class="display-1"
+                            align-center
+                            column
+                            justify-center
+                  >
+                      <h1 class="font-weight-thin">AlphaBoard</h1>
+                      <vue-typed-js :strings="['Your Personal Financial Secretary', 'Keep Track of Everyday News']" :loop="true"
+                                    :showCursor="true">
+                          <h4 class="typing"></h4>
+                      </vue-typed-js>
+                  </v-layout>
+              </v-parallax>
+          </v-flex>
+      </v-layout>
+
+
 
 
       <portfolio></portfolio>
