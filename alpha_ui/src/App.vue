@@ -22,8 +22,8 @@
           </v-btn>
       </v-toolbar>
 
-
-      <v-parallax dark
+      <!--           Landing Page               -->
+      <v-parallax dark v-if="!showDetail"
               src="https://s3-us-west-1.amazonaws.com/ypsongresume/lacitydark_compressed.jpg" :height="bgHeight" class="blur"
       >
       <v-layout row wrap align-center>
@@ -48,10 +48,18 @@
       </v-layout>
       </v-parallax>
 
+      <!--           Details Page               -->
+      <div v-if="showDetail" class="grey darken-3">
+          <Finance></Finance>
+          <News></News>
+      </div>
 
-      <Finance></Finance>
+      <!--             Footer               -->
+      <v-footer class="pa-3" dark>
+          <v-spacer></v-spacer>
+          <div>Joey, Jim, Frank, Dianna, and Max &copy; {{ new Date().getFullYear() }}</div>
+      </v-footer>
 
-      <News></News>
 
   </v-app>
 </template>
@@ -88,19 +96,22 @@ export default {
   name: 'app',
     data () {
       return {
-          bgHeight: 800,
+          bgHeight: 1000,
+          showDetail: true,
       };
     },
     mounted () {
         document.addEventListener('grewPortfolio', this.increaseHeight);
+        document.addEventListener('transitionToDetail', this.handleTransition);
     },
     methods: {
         increaseHeight: function () {
             this.bgHeight += 68;
-        }
+        },
+        handleTransition: function () {
+            this.showDetail = true;
+        },
     },
-
-
   components: {
       Finance,
       News,
