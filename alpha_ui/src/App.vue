@@ -1,53 +1,54 @@
 <template>
   <v-app id="app">
 
+      <!--           navigation               -->
+      <v-toolbar dense dark>
+          <v-toolbar-side-icon></v-toolbar-side-icon>
 
+          <v-toolbar-title>AlphaBoard</v-toolbar-title>
 
-      <!--<v-card-->
-              <!--color="blue lighten-4"-->
-              <!--flat-->
-              <!--height="200px"-->
-              <!--tile-->
-      <!--&gt;-->
-          <v-toolbar dense>
-              <v-toolbar-side-icon></v-toolbar-side-icon>
+          <v-spacer></v-spacer>
 
-              <v-toolbar-title>AlphaBoard</v-toolbar-title>
+          <v-btn icon>
+              <v-icon>search</v-icon>
+          </v-btn>
 
-              <v-spacer></v-spacer>
+          <v-btn icon>
+              <v-icon>favorite</v-icon>
+          </v-btn>
 
-              <v-btn icon>
-                  <v-icon>search</v-icon>
-              </v-btn>
-
-              <v-btn icon>
-                  <v-icon>favorite</v-icon>
-              </v-btn>
-
-              <v-btn icon>
-                  <v-icon>more_vert</v-icon>
-              </v-btn>
-          </v-toolbar>
-      <!--</v-card>-->
+          <v-btn icon>
+              <v-icon>more_vert</v-icon>
+          </v-btn>
+      </v-toolbar>
 
       <v-parallax dark
-              src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+              src="https://s3-us-west-1.amazonaws.com/ypsongresume/lacitydark_compressed.jpg" :height="bgHeight" class="blur"
       >
-          <v-layout class="display-1"
-                  align-center
-                  column
-                  justify-center
-          >
-              <h1 class="font-weight-thin">AlphaBoard</h1>
-              <vue-typed-js :strings="['Your Personal Financial Secretary', 'Keep Track of Everyday News']" :loop="true"
-                            :showCursor="true">
-                  <h4 class="typing"></h4>
-              </vue-typed-js>
-          </v-layout>
+      <v-layout row wrap align-center>
+          <v-flex xs6 id="transparent">
+              <portfolio ></portfolio>
+          </v-flex>
+          <v-flex xs6 class="display-1">
+              <v-layout justify-center column align-center>
+                  <v-flex xs12>
+                      <h1 class="font-weight-thin">AlphaBoard</h1>
+                  </v-flex>
+                  <v-flex xs12>
+                      <vue-typed-js :strings="['Your Personal Financial Secretary', 'Keep Track of Everyday News']" :loop="true"
+                                    :showCursor="true">
+                          <h4 class="typing font-weight-thin font-italic" ></h4>
+                      </vue-typed-js>
+                  </v-flex>
+              </v-layout>
+
+          </v-flex>
+
+      </v-layout>
       </v-parallax>
 
 
-      <portfolio></portfolio>
+
       <Finance></Finance>
 
       <News></News>
@@ -85,6 +86,21 @@ mapInit(Highcharts)
 
 export default {
   name: 'app',
+    data () {
+      return {
+          bgHeight: 800,
+      };
+    },
+    mounted () {
+        document.addEventListener('grewPortfolio', this.increaseHeight);
+    },
+    methods: {
+        increaseHeight: function () {
+            this.bgHeight += 68;
+        }
+    },
+
+
   components: {
       Finance,
       News,
@@ -148,6 +164,15 @@ h4 {
     text-align: center;
 }
 
+.blur img {
+    filter: blur(1px);
+    -webkit-filter: blur(8px);
+
+}
+
+#transparent {
+    opacity:0.85;
+}
 
 
 

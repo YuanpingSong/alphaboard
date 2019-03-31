@@ -1,13 +1,13 @@
 <template>
-    <v-stepper v-model="step" vertical>
+    <v-stepper v-model="step" vertical dark>
         <!--                         Step 1                            -->
         <v-stepper-step :complete="step > 1" step="1" @click="step = 1">
             Enter Tickers in Your Portfolio
         </v-stepper-step>
 
         <v-stepper-content step="1">
-            <v-card color="grey lighten-4" class="pa-2" >
-                <v-text-field v-for="ticker in tickers"
+            <v-card class="pa-2" >
+                <v-text-field dark v-for="ticker in tickers"
                               v-model="ticker.ticker" :label="'Stock # ' + ticker.index" :key="ticker.index">
                 </v-text-field>
             </v-card>
@@ -16,7 +16,7 @@
                 <v-btn block color="secondary" dark @click="AddInputField">Add Another</v-btn>
             </template>
 
-            <v-btn color="primary" @click="step = 2">Continue</v-btn>
+            <v-btn color="primary" @click="step=2">Continue</v-btn>
             <v-btn flat @click="resetState">Cancel</v-btn>
         </v-stepper-content>
 
@@ -24,9 +24,9 @@
         <v-stepper-step :complete="step > 2" step="2">Enter Proportions </v-stepper-step>
 
         <v-stepper-content step="2">
-            <v-card color="grey lighten-4" class="mb-5">
+            <v-card class="mb-5">
                 <div v-for="ticker in tickers" :key="ticker.index" v-if="ticker.ticker" class="pa-3">
-                    <v-subheader class="pl-0">{{ticker.ticker}} Proportion (1-100) </v-subheader>
+                    <v-subheader class="pl-1">{{ticker.ticker}} Proportion (1-100) </v-subheader>
                     <v-slider
                             v-model="ticker.proportion"
                             thumb-label
@@ -40,7 +40,7 @@
         <!--                         Step 3                            -->
         <v-stepper-step :complete="step > 3" step="3">Which Technical Indicators Do You Want to See?</v-stepper-step>
         <v-stepper-content step="3">
-            <v-card color="grey lighten-4" class="pa-3">
+            <v-card class="pa-3">
                 <v-checkbox
                         v-model="indicators.performance"
                         label="Performance"
@@ -65,7 +65,7 @@
         <!--                         Step 4                            -->
         <v-stepper-step step="4">Subscribe to Our Alerts!</v-stepper-step>
         <v-stepper-content step="4">
-            <v-card color="grey lighten-4" class="ma-3" >
+            <v-card class="ma-3" >
                 <v-layout v-for="ticker in tickers" v-if="ticker.ticker" row wrap >
                     <v-flex sm12 class="ml-3">
                         <v-subheader class="pl-0" sm12> Set Notification Limits for {{ticker.ticker}} </v-subheader>
@@ -121,7 +121,6 @@
         },
         mounted() {
 
-
         },
         methods: {
             AddInputField: function () {
@@ -131,6 +130,9 @@
                     proportion: undefined
                 };
                 this.tickers.push(ticker);
+
+                const event = new Event('grewPortfolio');
+                document.dispatchEvent(event);
             },
             submitForm: async function () {
                 // validate step 4 inputs
@@ -208,7 +210,8 @@
                         max: undefined,
                     },
                 ];
-            }
+            },
+
         },
         watch: {
 
