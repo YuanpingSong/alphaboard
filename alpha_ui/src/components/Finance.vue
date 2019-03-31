@@ -25,7 +25,7 @@
                 </v-layout>
             </v-flex>
         </v-layout>
-        <v-btn block color="secondary" dark @click="toggleGraphs">Block Button</v-btn>
+        <v-btn block color="secondary" dark @click="toggleGraphs">{{this.btnText}}</v-btn>
     </div>
 
 
@@ -49,13 +49,18 @@
         methods: {
             toggleGraphs: function () {
                 this.isRealTime = !this.isRealTime;
+                if (this.isRealTime) {
+                    this.btnText = 'See Metrics';
+                } else {
+                    this.btnText = 'See Real-time Market Data';
+                }
             }
         },
         watch: {
             isRealTime: async function () {
                 return
                 if (this.isRealTime) {
-                    return;
+                    return
                 }
 
                 // otherwise, update chartOptions
@@ -64,7 +69,7 @@
 
                 Object.keys(obj).forEach(key => {
                     let value = obj[key];
-                    for (let card of cards) {
+                    for (let card of this.cards) {
                         if (card.key == key) {
                             card.value = value;
                             return;
@@ -76,6 +81,7 @@
         data () {
             return {
                 isRealTime: true,
+                btnText: 'See Metrics',
                 cards: [
                     {
                         key: 'rnrRiskAdjustedReturnOverall',
