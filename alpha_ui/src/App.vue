@@ -33,20 +33,25 @@
       <v-parallax dark
               src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
       >
-          <v-layout
+          <v-layout class="display-1"
                   align-center
                   column
                   justify-center
           >
-              <h1 class="font-weight-thin mb-3">AlphaBoard</h1>
-              <h4 class="line-1 typewriter">Your Personal Secretary</h4>
+              <h1 class="font-weight-thin">AlphaBoard</h1>
+              <vue-typed-js :strings="['Your Personal Financial Secretary', 'Keep Track of Everyday News']" :loop="true"
+                            :showCursor="true">
+                  <h4 class="typing"></h4>
+              </vue-typed-js>
           </v-layout>
       </v-parallax>
 
+
       <portfolio></portfolio>
-      <Finance class="f"></Finance>
+      <Finance></Finance>
+
       <News></News>
-      
+
   </v-app>
 </template>
 
@@ -85,7 +90,12 @@ export default {
       News,
       Portfolio,
       // put additional single file components here
-  }
+  }//,
+    // mounted() {
+    //     let recaptchaScript = document.createElement('script')
+    //     recaptchaScript.setAttribute('src', 'https://unpkg.com/vue-typer/dist/vue-typer.min.js')
+    //     document.head.appendChild(recaptchaScript)
+    // },
 }
 </script>
 
@@ -94,18 +104,18 @@ export default {
   
 }
 
-.line-1{
-    position: relative;
-    top: 50%;
-    width: 24em;
-    margin: 0 auto;
-    border-right: 2px solid rgba(255,255,255,.75);
-    font-size: 180%;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    transform: translateY(-50%);
-}
+/*.line-1{*/
+    /*position: relative;*/
+    /*top: 50%;*/
+    /*width: 24em;*/
+    /*margin: 0 auto;*/
+    /*border-right: 2px solid rgba(255,255,255,.75);*/
+    /*font-size: 180%;*/
+    /*text-align: center;*/
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+    /*transform: translateY(-50%);*/
+/*}*/
 
 /* Animation */
 /*.typewriter{*/
@@ -128,6 +138,13 @@ export default {
 h1 {
     font-size: 70px;
     font-family: 'Cardo';
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h4 {
+    font-size: 30px;
+    font-family: 'Amiri';
     text-align: center;
 }
 
