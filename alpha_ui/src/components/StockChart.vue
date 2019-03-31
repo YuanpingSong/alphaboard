@@ -1,8 +1,6 @@
 <template>
-<<<<<<< HEAD
+
   <div class="StockChart" style="height:600px">
-=======
->>>>>>> b3b92dcaa1433458478d74d4465a747168148655
     <highcharts class="stock" :constructor-type="'stockChart'" :options="stockOptions"></highcharts>
     <p @click="updateChart">Click Me </p>
   </div>
