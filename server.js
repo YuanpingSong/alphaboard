@@ -1,4 +1,5 @@
 const bodyParser = require('body-parser');
+const fetch = require('node-fetch');
 const express = require('express');
 const flatten = require('flat');
 const app = express();
@@ -53,7 +54,7 @@ app.post('/register', bodyParser(), function (req, res) {
     res.send('Register successfully sent!');
 });
 
-app.post('/getBR', function (req, res) {
+app.get('/getBR', async function (req, res) {
     // const queryParams = req.query;
     let positions = '';
     let i = 0;
@@ -67,29 +68,44 @@ app.post('/getBR', function (req, res) {
     const calculateRisk = userData.indicators.risk.toString();
     const calculateExpectedReturns = userData.indicators.expectedReturns.toString();
     const calculateStressTests = userData.indicators.stressTest.toString();
-    fullBRAPIRequest = BRAPIRequest + 'positions=' + positions + '&currency=' + currency + '&calculateRisk=' + calculateRisk +
-        '&calculateExpectedReturns=' + calculateExpectedReturns + '&calculateStressTests' + calculateStressTests;
-    res.json(fetchBRData());
+    fullBRAPIRequest = BRAPIRequest + 'positions=' + positions + '&calculateExposures=true&currency=' + currency + '&calculateRisk=' + calculateRisk +
+        '&calculateExpectedReturns=' + calculateExpectedReturns + '&calculateStressTests=' + calculateStressTests;
+    console.log(fullBRAPIRequest);
+    let result = await fetchBRData();
+    console.log(JSON.stringify(result));
+    res.json(result);
 });
 
 async function fetchBRData() {
     const response = await fetch(fullBRAPIRequest);
     const intermediate = await response.json();
+    console.log(intermediate);
+    console.log('------------------------------------------------------')
+    console.log(intermediate.resultMap);
+    console.log('------------------------------------------------------')
+    console.log(intermediate.resultMap.PORTFOLIOS[0]);
+    console.log('------------------------------------------------------')
+    console.log(intermediate.resultMap.PORTFOLIOS[0].portfolios[0]);
+    console.log('------------------------------------------------------')
+    console.log(intermediate.resultMap.PORTFOLIOS[0].portfolios[0].returns);
     return {
         'weightedAveragePerformance': intermediate.resultMap.PORTFOLIOS[0].portfolios[0].returns.weightedAveragePerformance,
-        'performanceChart': intermediate.resultMap.PORTFOLIOS[0].portfolios[0].returns.performanceChart
+        // 'performanceChart': intermediate.resultMap.PORTFOLIOS[0].portfolios[0].returns.performanceChart
     };
 }
 
-app.post('/getAV', function (req, res) {
+app.get('/getAV', async function (req, res) {
+    console.log("getAV")
+    monitorAVData();
     setInterval(monitorAVData, 300000);
     let i = 0;
     let final = {};
     for (i; i < userData.portfolio.length; i++) {
-        let fullAVAPIRequest = AVAPIRequest + 'function=TIME_SERIES_INTRADAY' + '&symbol=' + userData.portfolio[i].ticker + '&interval=1min' + '&outputsize=full' +
+        fullAVAPIRequest = AVAPIRequest + 'function=TIME_SERIES_INTRADAY' + '&symbol=' + userData.portfolio[i].ticker + '&interval=1min' + '&outputsize=full' +
             '&apikey=' + AVapikey;
-        final[userData.portfolio[i].ticker] = fetchAVData();
+        final[userData.portfolio[i].ticker] = await fetchAVData();
     }
+
     final['average'] = {};
     let j = 0;
     final['average']['price'] = [];
@@ -97,9 +113,11 @@ app.post('/getAV', function (req, res) {
         let k = 0;
         let averageVal = 0;
         for (k; k < userData.portfolio.length; k++) {
-            averageVal += userData.portfolio[k].proportion / 100 * parseFloat(final[userData.portfolio[k].ticker].price[j][1]);
+            averageVal += parseFloat(final[userData.portfolio[k].ticker].price[j][1])/k;
+
         }
-        final['average']['price'].push([final[userData.portfolio[0].ticker].price[j][0], averageVal.toString()]);
+        final['average']['price'].push([final[userData.portfolio[0].ticker].price[j][0], averageVal.toString() ]);
+        // console.log(final);
     }
     res.json(final);
 });
@@ -131,14 +149,16 @@ async function fetchAVData() {
 }
 
 function sendSMS(client, content) {
+    console.log(userData.configuration.phoneNumber);
     client.messages.create({
         body: content,
         from: twilioAuth.from,
-        to: temPhoneNum
+        to: userData.configuration.phoneNumber,
     }).then(message => console.log(message.sid));
 }
 
 async function monitorAVData() {
+    console.log("monitor")
     let i = 0;
     for (i; i < userData.portfolio.length; i++) {
         monitorAVAPIRequest = AVAPIRequest + 'function=TIME_SERIES_INTRADAY' + '&symbol=' + userData.portfolio[i].ticker + '&interval=5min' +
@@ -148,11 +168,12 @@ async function monitorAVData() {
         let counter = 0;
         let prev = 0;
         let curr = 0;
-        for (time in intermediate['Time Series (5min)']) {
+        sendSMS(client, `Your stock ${userData.portfolio[i].ticker} rose above ${userData.portfolio[i].max} now!`);
+       /* for (time in intermediate['Time Series (5min)']) {
             if (counter === 0) {
                 curr = parseFloat(intermediate['Time Series (5min)'][time]['1. open']);
                 if (hasOwnProperty('max') && parseInt(userData.portfolio[i].max) < curr) {
-                    sendSMS(client, `Your stock ${userData.portfolio[i].ticker} rose above ${userData.portfolio[i].max} now!`);
+
                 } else if (hasOwnProperty('min')) {
                     sendSMS(client, `Your stock ${userData.portfolio[i].ticker} dropped below ${userData.portfolio[i].min} now!`);
                 }
@@ -166,7 +187,7 @@ async function monitorAVData() {
                 }
             } else
                 break;
-        }
+        }*/
     }
 
 }

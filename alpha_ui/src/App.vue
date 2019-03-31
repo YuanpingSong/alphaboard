@@ -97,7 +97,7 @@ export default {
     data () {
       return {
           bgHeight: 1000,
-          showDetail: true,
+          showDetail: false,
       };
     },
     mounted () {

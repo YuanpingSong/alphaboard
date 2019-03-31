@@ -1,6 +1,6 @@
 <template>
 
-  <div class="StockChart">
+  <div class="StockChart" class="text-xs-center">
     <highcharts class="stock" :constructor-type="'stockChart'" :options="stockOptions" v-if="inRealTime"></highcharts>
   </div>
 </template>
@@ -13,6 +13,7 @@ export default {
     return {
       inRealTime: true,
       intervalVar: undefined,
+      showProgress: true,
       stockOptions: {
         colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
         '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
@@ -218,18 +219,43 @@ export default {
     }
   },
   mounted () {
-    let boundUpdateChart = this.updateChart.bind(this);
-    this.intervalVar = setInterval(boundUpdateChart, 1000);
+    this.updateChart();
+    let boundUpdateChart = this.simulateUpdate.bind(this);
+    this.intervalVar = setInterval(boundUpdateChart, 2000);
   },
   methods: {
     updateChart: async function () {
-      return;
       this.stockOptions.title.text ='Portfolio (Real time)';
-      this.stockOptions.series[0].data.push(Math.random() * 100);
+      // this.stockOptions.series[0].data.push(Math.random() * 100);
       let res = await fetch('/getAV');
       let json = await res.json();
-      let series = json.sth; // edit this
+
+      let series = []
+      Object.keys(json).forEach(key => {
+
+          let temp = {};
+          temp.data= [];
+          temp.name = key;
+          console.log(json);
+          let value = json[key];
+          value.price.forEach(function (pair) {
+            temp.data.push(parseFloat(pair[1]))
+          });
+          temp.data.reverse();
+          temp.pointStart = Date.parse(value.price[value.price.length - 1][0]);
+          temp.pointInterval = 1000 * 60;
+          temp.tooltip = {
+            valueDecimals: 2,
+          };
+          series.push(temp);
+
+      });
       this.stockOptions.series = series;
+    },
+    simulateUpdate: function () {
+      for (let series of this.stockOptions.series) {
+        series.data.push(series.data[series.data.length-1]*(0.98 + 0.04*Math.random()));
+      }
     }
   }
 }

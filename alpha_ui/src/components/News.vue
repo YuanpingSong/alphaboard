@@ -2,13 +2,13 @@
     <div class="News">
         <v-layout row wrap>
 
-            <!--
+
             <v-flex sm6 class="pa-5" v-for="card in cards">
                 <v-card dark>
                     <v-img
                             :src="card.imageSrc"
                             aspect-ratio="2.75"
-                            height="200"
+                            height="300"
                     ></v-img>
 
                     <v-card-title primary-title>
@@ -17,96 +17,13 @@
                     </v-card-title>
 
                     <v-card-actions>
-                        <v-btn :href="card.url" flat color="orange">READ</v-btn>
+                        <v-btn :href="card.url" flat color="blue darken-2">READ</v-btn>
                     </v-card-actions>
 
                 </v-card>
             </v-flex>
-            -->
-
-                <v-flex sm6 class="pa-5">
-                    <v-card dark>
-                        <v-img
-                                src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-                                aspect-ratio="2.75"
-                                height="200"
-                        ></v-img>
-
-                        <v-card-title primary-title>
-                            <h3 class="headline" style="margin-bottom: 8px">Kangaroo Valley Safari</h3>
-                            <div class="text-truncate"> {{ card_text }} </div>
-                        </v-card-title>
 
 
-
-                    </v-card>
-                </v-flex>
-
-
-
-
-
-            <v-flex sm6 class="pa-5">
-                <v-card dark>
-                    <v-img
-                            src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-                            aspect-ratio="2.75"
-                            height="200"
-                    ></v-img>
-
-                    <v-card-title primary-title>
-                            <h3 class="headline" style="margin-bottom: 8px">Kangaroo Valley Safari</h3>
-                            <div class="text-truncate"> {{ card_text }} </div>
-                    </v-card-title>
-
-                    <!--<v-card-actions>-->
-                        <!--<v-btn flat color="orange">Share</v-btn>-->
-                        <!--<v-btn flat color="orange">Read More</v-btn>-->
-                    <!--</v-card-actions>-->
-                </v-card>
-            </v-flex>
-
-
-                <v-flex sm6 class="pa-5">
-                    <v-card dark>
-                        <v-img
-                                src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-                                aspect-ratio="2.75"
-                                height="200"
-                        ></v-img>
-
-                        <v-card-title primary-title>
-                                <h3 class="headline" style="margin-bottom: 8px">Kangaroo Valley Safari</h3>
-                                <div class="text-truncate"> {{ card_text }} </div>
-                        </v-card-title>
-
-                        <!--<v-card-actions>-->
-                            <!--<v-btn flat color="orange">Share</v-btn>-->
-                            <!--<v-btn flat color="orange">Read More</v-btn>-->
-                        <!--</v-card-actions>-->
-                    </v-card>
-                </v-flex>
-
-
-            <v-flex sm6 class="pa-5">
-                <v-card dark>
-                    <v-img
-                            src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-                            aspect-ratio="2.75"
-                            height="200"
-                    ></v-img>
-
-                    <v-card-title primary-title>
-                        <h3 class="headline" style="margin-bottom: 8px">Kangaroo Valley Safari</h3>
-                        <div class="text-truncate"> {{ card_text }} </div>
-                    </v-card-title>
-
-                    <!--<v-card-actions>-->
-                    <!--<v-btn flat color="orange">Share</v-btn>-->
-                    <!--<v-btn flat color="orange">Read More</v-btn>-->
-                    <!--</v-card-actions>-->
-                </v-card>
-            </v-flex>
         </v-layout>
 
     </div>
@@ -134,7 +51,7 @@
             getNews: async function () {
                 try {
                     let res = await fetch('/news');
-                    let json = await res.json();
+                    var json = await res.json();
                 } catch (err) {
                     console.log('fetch news failed due to ' + err.message())
                 }
