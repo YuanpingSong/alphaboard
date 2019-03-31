@@ -70,7 +70,7 @@ async function fetchAVData(interval) {
         volumeArray.push(pair);
     }
     return {
-        'price': priceArray,
+        'priqce': priceArray,
         'volume': volumeArray
     };
 }
