@@ -50,7 +50,6 @@ export default {
 </script>
 
 
-
 <style scoped>
 .stock {
   width: 100%;

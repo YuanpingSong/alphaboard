@@ -22,6 +22,7 @@
           </v-btn>
       </v-toolbar>
 
+
       <v-parallax dark
               src="https://s3-us-west-1.amazonaws.com/ypsongresume/lacitydark_compressed.jpg" :height="bgHeight" class="blur"
       >
@@ -46,7 +47,6 @@
 
       </v-layout>
       </v-parallax>
-
 
 
       <Finance></Finance>
