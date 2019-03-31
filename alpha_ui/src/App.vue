@@ -43,10 +43,12 @@
           </v-layout>
       </v-parallax>
 
+
       <portfolio></portfolio>
-      <Finance class="f"></Finance>
+      <Finance></Finance>
+
       <News></News>
-      
+
   </v-app>
 </template>
 
