@@ -91,8 +91,7 @@ export default {
 
 <style>
 .f {
-    width: 600px;
-    height: 200px;
+  
 }
 
 .line-1{
@@ -131,5 +130,8 @@ h1 {
     font-family: 'Cardo';
     text-align: center;
 }
+
+
+
 
 </style>
