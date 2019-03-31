@@ -14,3 +14,6 @@ Vue.config.productionTip = false
 new Vue({
   render: h => h(App),
 }).$mount('#app')
+
+fetch('/getAV?ticker=' + ticker + '&interval=' + interval, {method: 'POST'})
+.then(onResponse).then(onJSONReady);
