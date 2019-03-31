@@ -49,10 +49,13 @@ export default {
 }
 </script>
 
+
+
 <style scoped>
 .stock {
-  width: 70%;
-  margin: 0 auto
+  width: 100%;
+  display:inline-block;
 }
 
 </style>
+
