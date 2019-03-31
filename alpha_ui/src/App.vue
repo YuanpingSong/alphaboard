@@ -109,22 +109,23 @@ export default {
 }
 
 /* Animation */
-.typewriter{
-    animation: typewriter 2.5s steps(44) 1s 1 normal both,
-    blinkTextCursor 500ms steps(44) infinite normal;
-    font-family: 'Amiri';
-    font-style: italic;
-    font-size: 30px;
-    text-align: center;
-}
-@keyframes typewriter{
-    from{width: 0;}
-    to{width: 10.8em;}
-}
-@keyframes blinkTextCursor{
-    from{border-right-color: rgba(255,255,255,.75);}
-    to{border-right-color: transparent;}
-}
+/*.typewriter{*/
+    /*animation: typewriter 2.5s steps(44) 1s 1 normal both,*/
+    /*blinkTextCursor 500ms steps(44) infinite normal;*/
+    /*font-family: 'Amiri';*/
+    /*font-style: italic;*/
+    /*font-size: 30px;*/
+    /*text-align: center;*/
+/*}*/
+
+/*@keyframes typewriter{*/
+    /*from{width: 0;}*/
+    /*to{width: 10.8em;}*/
+/*}*/
+/*@keyframes blinkTextCursor{*/
+    /*from{border-right-color: rgba(255,255,255,.75);}*/
+    /*to{border-right-color: transparent;}*/
+/*}*/
 h1 {
     font-size: 70px;
     font-family: 'Cardo';
