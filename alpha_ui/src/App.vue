@@ -49,10 +49,16 @@
       </v-parallax>
 
       <!--           Details Page               -->
-      <div v-if="showDetail">
+      <div v-if="showDetail" class="grey darken-3">
           <Finance></Finance>
           <News></News>
       </div>
+
+      <!--             Footer               -->
+      <v-footer class="pa-3" dark>
+          <v-spacer></v-spacer>
+          <div>Joey, Jim, Frank, Dianna, and Max &copy; {{ new Date().getFullYear() }}</div>
+      </v-footer>
 
 
   </v-app>

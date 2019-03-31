@@ -2,11 +2,6 @@
 
   <div class="StockChart">
     <highcharts class="stock" :constructor-type="'stockChart'" :options="stockOptions" v-if="inRealTime"></highcharts>
-    <highcharts> </highcharts>
-
-
-
-    <p @click="updateChart">Click Me </p>
   </div>
 </template>
 
@@ -228,6 +223,7 @@ export default {
   },
   methods: {
     updateChart: async function () {
+      return;
       this.stockOptions.title.text ='Portfolio (Real time)';
       this.stockOptions.series[0].data.push(Math.random() * 100);
       let res = await fetch('/getAV');
@@ -238,7 +234,6 @@ export default {
   }
 }
 </script>
-
 
 <style scoped>
 .stock {
