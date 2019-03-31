@@ -162,7 +162,9 @@
                 });
 
                 // submit form
-                this.config.phoneNumber = this.config.phoneNumber.replace(/\s/g,'');
+               if (this.config.phoneNumber) {
+                   this.config.phoneNumber = this.config.phoneNumber.replace(/\s/g,'');
+               }
                 const payload = {
                     portfolio: filtered,
                     indicators: this.indicators,
@@ -182,7 +184,11 @@
                 } catch (err) {
                     this.snackText = "Failed to register due to " + err.message;
                     this.snackbar = true;
+                    return;
                 }
+                const event = new Event('transitionToDetail');
+                console.log('Dispathcing event');
+                document.dispatchEvent(event);
             },
             validateProportion: function () {
                 let sum = 0;

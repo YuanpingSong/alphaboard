@@ -1,12 +1,13 @@
 <template>
     <div class="Finance">
         <v-layout>
-            <v-flex sm6 class='pa-3'>
+            <v-flex xs12 class='pa-3'>
+                <StockChart ></StockChart>
+            </v-flex>
+            <!-- <v-flex sm6 class='pa-3'>
                 <highcharts :options="chartOptions"></highcharts>
-            </v-flex>
-            <v-flex sm6 class='pa-3'>
-                <StockChart id="s"></StockChart>
-            </v-flex>
+            </v-flex> -->
+
         </v-layout>
         
         
