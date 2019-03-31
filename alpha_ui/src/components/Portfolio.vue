@@ -17,7 +17,7 @@
             </template>
 
             <v-btn color="primary" @click="step = 2">Continue</v-btn>
-            <v-btn flat @click="step = 0">Cancel</v-btn>
+            <v-btn flat @click="resetState">Cancel</v-btn>
         </v-stepper-content>
 
         <!--                         Step 2                            -->
@@ -33,8 +33,8 @@
                     ></v-slider>
                 </div>
             </v-card>
-            <v-btn color="primary" @click="step = 3">Continue</v-btn>
-            <v-btn flat @click="step = 0">Cancel</v-btn>
+            <v-btn color="primary" @click="validateProportion">Continue</v-btn>
+            <v-btn flat @click="resetState">Cancel</v-btn>
         </v-stepper-content>
 
         <!--                         Step 3                            -->
@@ -59,30 +59,52 @@
                 ></v-checkbox>
             </v-card>
             <v-btn color="primary" @click="step = 4">Continue</v-btn>
-            <v-btn flat @click="step = 0">Cancel</v-btn>
+            <v-btn flat @click="resetState">Cancel</v-btn>
         </v-stepper-content>
 
         <!--                         Step 4                            -->
         <v-stepper-step step="4">Subscribe to Our Alerts!</v-stepper-step>
         <v-stepper-content step="4">
             <v-card color="grey lighten-4" class="ma-3" >
-                <v-layout v-for="ticker in tickers" row wrap >
+                <v-layout v-for="ticker in tickers" v-if="ticker.ticker" row wrap >
                     <v-flex sm12 class="ml-3">
                         <v-subheader class="pl-0" sm12> Set Notification Limits for {{ticker.ticker}} </v-subheader>
                     </v-flex>
                     <v-layout>
                         <v-flex sm6 class="ml-3 mr-3">
-                            <v-text-field v-model="ticker.min" label="Maximum Threshold"></v-text-field>
+                            <v-text-field v-model="ticker.max" label="Maximum Threshold"></v-text-field>
                         </v-flex>
                         <v-flex sm6 class="ml-3 mr-3">
-                            <v-text-field v-model="ticker.max" label="Minimum Threshold"></v-text-field>
+                            <v-text-field v-model="ticker.min" label="Minimum Threshold"></v-text-field>
                         </v-flex>
                     </v-layout>
                 </v-layout>
+                <v-text-field v-model="config.phoneNumber" label="Your phone number" class="pl-3"
+                              placeholder="+1 310 123 1234"></v-text-field>
+                <v-checkbox
+                        v-model="config.newsNotification"
+                        label="Sign up for Text News Notifications"
+                        class="pl-3"
+                ></v-checkbox>
+                <v-checkbox
+                        v-model="config.stocksNotification"
+                        label="Sign up for Text Market Notifications"
+                        class="pl-3"
+                ></v-checkbox>
             </v-card>
             <v-btn color="primary" @click="submitForm">Continue</v-btn>
-            <v-btn flat @click="step = 0">Cancel</v-btn>
+            <v-btn flat @click="resetState">Cancel</v-btn>
         </v-stepper-content>
+
+        <v-snackbar v-model="snackbar" :timeout="timeout"> {{snackText}}
+            <v-btn
+                    color="pink"
+                    flat
+                    @click="snackbar = false"
+            >
+                Fix
+            </v-btn>
+        </v-snackbar>
     </v-stepper>
 
 </template>
@@ -110,43 +132,94 @@
                 };
                 this.tickers.push(ticker);
             },
-            submitForm: function () {
+            submitForm: async function () {
+                // validate step 4 inputs
+                if ((this.config.newsNotification || this.config.stocksNotification) && (!this.config.phoneNumber)) {
+                    this.snackText = 'Please provide a phone number if you wish to receive our notifications!';
+                    this.snackbar = true;
+                    return;
+                }
 
+                for (let ticker of this.tickers) {
+                    if ( (ticker.min && ticker.min < 0) || (ticker.max && ticker.max < 0)) {
+                        this.snackText = 'Limit price must be positive!';
+                        this.snackbar = true;
+                        return;
+                    }
+
+                    if (ticker.min && ticker.max && ticker.max < ticker.min) {
+                        this.snackText = 'Max Limit must be no less than min limit';
+                        this.snackbar = true;
+                        return;
+                    }
+                }
+
+                // remove empty ticker
+                const filtered = this.tickers.filter(function(value, index, arr) {
+                   return value.ticker;
+                });
+
+                // submit form
+                this.config.phoneNumber = this.config.phoneNumber.replace(/\s/g,'');
+                const payload = {
+                    portfolio: filtered,
+                    indicators: this.indicators,
+                    configuration: this.config,
+                };
+
+                console.log(JSON.stringify(payload));
+                try {
+                    await fetch('/register', {
+                        method: 'POST',
+                        mode: "cors",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(payload),
+                    });
+                } catch (err) {
+                    this.snackText = "Failed to register due to " + err.message;
+                    this.snackbar = true;
+                }
+            },
+            validateProportion: function () {
+                let sum = 0;
+                for (let ticker of this.tickers) {
+                    if (ticker.ticker) {
+                        sum += ticker.proportion;
+                    }
+                }
+                if (sum != 100) {
+
+                    this.snackText = 'Proportions should add up to 100, Now: ' + sum.toString();
+                    this.snackbar = true;
+                } else {
+                    this.step += 1;
+                }
+            },
+            resetState: function () {
+                this.step = 0;
+                this.tickers = [
+                    {
+                        index: '1',
+                        ticker: 'AAPL',
+                        proportion: undefined,
+                        min: undefined,
+                        max: undefined,
+                    },
+                ];
             }
         },
         watch: {
 
-            tickers: {
-                handler (newQuestion, oldQuestion) {
-                    console.log("hello from watch ")
-                    let sum= 0;
-                    for (let ticker of this.tickers) {
-                        if (ticker.proportion) {
-                            sum += ticker.proportion
-                        }
-                    }
-                    console.log(sum);
-                    if (sum > 100) {
-                        sum -= 100;
-                        while (sum) {
-                            for (let i = 0; i < this.tickers.length; i++) {
-                                if (this.tickers[i].proportion && this.tickers[i].proportion > 0) {
-                                    this.tickers[i].proportion -= 1;
-                                    sum -= 1;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                },
-                deep: true,
-            }
         },
 
         data () {
             return {
+                timeout: 5000,
                 step: 0,
-                selected: [2],
+                snackbar: false,
+                snackText: '',
                 tickers: [
                     {
                         index: '1',
@@ -157,14 +230,15 @@
                     },
                 ],
                 indicators : {
-                    performance: false,
-                    risk: false,
-                    expectedReturns: false,
-                    stressTest: false,
+                    performance: true,
+                    risk: true,
+                    expectedReturns: true,
+                    stressTest: true,
                 },
                 config: {
                     newsNotification: true,
                     stocksNotification: true,
+                    phoneNumber: undefined,
                 }
             }
         }
