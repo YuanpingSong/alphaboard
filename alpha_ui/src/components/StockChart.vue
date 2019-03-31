@@ -1,7 +1,11 @@
 <template>
+
   <div class="StockChart">
     <highcharts class="stock" :constructor-type="'stockChart'" :options="stockOptions" v-if="inRealTime"></highcharts>
     <highcharts> </highcharts>
+
+
+
     <p @click="updateChart">Click Me </p>
   </div>
 </template>
