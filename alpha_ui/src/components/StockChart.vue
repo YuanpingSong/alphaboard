@@ -1,5 +1,5 @@
 <template>
-  <div class="StockChart" style="height:800px">
+  <div class="StockChart" style="height:600px">
     <highcharts class="stock" :constructor-type="'stockChart'" :options="stockOptions"></highcharts>
     <p @click="updateChart">Click Me </p>
   </div>
