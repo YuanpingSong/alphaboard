@@ -220,8 +220,8 @@ export default {
   },
   mounted () {
     this.updateChart();
-    let boundUpdateChart = this.simulateUpdate.bind(this);
-    this.intervalVar = setInterval(boundUpdateChart, 2000);
+    // let boundUpdateChart = this.simulateUpdate.bind(this);
+    // this.intervalVar = setInterval(boundUpdateChart, 2000);
   },
   methods: {
     updateChart: async function () {
@@ -254,7 +254,7 @@ export default {
     },
     simulateUpdate: function () {
       for (let series of this.stockOptions.series) {
-        series.data.push(series.data[series.data.length-1]*(0.98 + 0.04*Math.random()));
+       series.data.push(series.data[series.data.length-1]*(0.98 + 0.04*Math.random()));
       }
     }
   }

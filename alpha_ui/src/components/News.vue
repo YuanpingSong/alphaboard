@@ -6,6 +6,7 @@
             <v-flex sm6 class="pa-5" v-for="card in cards">
                 <v-card dark>
                     <v-img
+                            lazy-src="https://s3-us-west-1.amazonaws.com/ypsongresume/googlenews.png"
                             :src="card.imageSrc"
                             aspect-ratio="2.75"
                             height="300"
