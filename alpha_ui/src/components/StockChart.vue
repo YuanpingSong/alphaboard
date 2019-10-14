@@ -1,6 +1,6 @@
 <template>
 
-  <div class="StockChart" class="text-xs-center">
+  <div class="StockChart, text-xs-center">
     <highcharts class="stock" :constructor-type="'stockChart'" :options="stockOptions" v-if="inRealTime"></highcharts>
   </div>
 </template>
